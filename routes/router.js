@@ -1,10 +1,73 @@
-import * as express from 'express';
+import * as express from 'express'
+import { Person } from '../models/Person'
+import { Role } from '../models/Role'
 import { Device } from '../models/Device';
-import { Person } from '../models/Person';
+var router = express.Router();
 
-var device = express.Router();
+router.route('/people')
+  .get((req, res) => {
+    Person
+      .where(req.query)
+      .fetchAll()
+      .then((people) => {
+        res.json({ people });
+      });
+  });
 
-device.route('/devices')
+router.route('/person')
+  .post((req, res) => {
+    new Person({
+      email: req.body.email,
+      name: req.body.name,
+      company: req.body.company,
+    })
+      .save()
+      .then((saved) => {
+        res.json({ saved });
+      });
+  });
+
+router.route('/roles')
+  .get((req, res) => {
+    Role
+      .where(req.query)
+      .fetchAll()
+      .then((roles) => {
+        res.json({ roles });
+      });
+  });
+
+router.route('/role')
+  .post((req, res) => {
+    new Role({
+      name: req.body.name,
+    })
+      .save()
+      .then((saved) => {
+        res.json({ saved });
+      });
+  });
+
+router.route('/role/assign')
+  .post(async (req, res) => {
+    const { personId, roleName } = req.body;
+    Role
+      .where('id', req.params.id)
+      .fetch()
+      .then((person) => {
+        person
+          .save({
+            email: req.body.email,
+            name: req.body.name,
+            company: req.body.company,
+          })
+          .then((saved) => {
+            res.json({ saved });
+          });
+      });
+  });
+
+router.route('/devices')
   .get((req, res) => {
     Device
       .where(req.query)
@@ -14,7 +77,7 @@ device.route('/devices')
       });
   });
 
-device.route('/devices/registered')
+router.route('/devices/registered')
   .get((req, res) => {
     Device
       .where('registered', true)
@@ -24,7 +87,7 @@ device.route('/devices/registered')
       });
   });
 
-device.route('/devices/:deviceId')
+router.route('/devices/:deviceId')
   .get((req, res) => {
     Device
       .where('deviceId', req.params.deviceId)
@@ -34,7 +97,7 @@ device.route('/devices/:deviceId')
       });
   });
 
-device.route('/devices/person/:personId')
+router.route('/devices/person/:personId')
   .get((req, res) => {
     Device
       .where('owned_by', req.params.personId)
@@ -44,7 +107,7 @@ device.route('/devices/person/:personId')
       });
   });
 
-device.route('/devices/register')
+router.route('/devices/register')
   .post((req, res) => {
     new Device({
       type: req.body.type,
@@ -59,7 +122,7 @@ device.route('/devices/register')
       });
   });
 
-device.route('/devices/person')
+router.route('/devices/person')
   .post((req, res) => {
     Device
       .where('deviceId', req.body.deviceId)
@@ -79,7 +142,7 @@ device.route('/devices/person')
       });
   });
 
-device.route('/device/:deviceId')
+router.route('/device/:deviceId')
   .put((req, res) => {
     Device
       .where('deviceId', req.body.deviceId)
@@ -99,3 +162,5 @@ device.route('/device/:deviceId')
       });
   });
 
+
+module.exports = router;
