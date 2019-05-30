@@ -4,7 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "migrate": "knex migrate:latest"
   },
   "author": "max",
   "license": "ISC",
@@ -13,10 +14,6 @@
     "bookshelf": "^0.14.2",
     "express": "^4.17.1",
     "knex": "^0.17.0",
-    "sqlite3": "^4.0.8"
-  },
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "migrate": "knex migrate:latest"
+    "mysql": "^2.17.1",
   }
 }

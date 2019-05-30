@@ -1,7 +1,10 @@
 module.exports = {
-  client: 'sqlite3',
+  client: 'mysql',
   connection: {
-    filename: 'database.sqlite3',
+    host: 'localhost',
+    port: 3306,
+    user: 'root',
+    password: 'bookshelf',
+    database: 'bookshelf',
   },
-  useNullAsDefault: true,
 }
