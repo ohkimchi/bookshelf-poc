@@ -1,7 +1,7 @@
-import * as express from 'express'
-import { Person } from '../models/Person'
-import { Role } from '../models/Role'
-import { Device } from '../models/Device';
+var express = require('express');
+var Person = require('../models/Person');
+var Role = require('../models/Role');
+var Device = require('../models/Device');
 var router = express.Router();
 
 router.route('/people')

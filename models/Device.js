@@ -1,4 +1,4 @@
-import { bookshelf } from '../bookshelf'
+var bookshelf = require('../bookshelf');
 
 var Device = bookshelf.Model.extend({
   tableName: 'devices',

@@ -1,4 +1,4 @@
-import { bookshelf } from '../bookshelf'
+var bookshelf = require('../bookshelf');
 
 var Person = bookshelf.Model.extend({
   tableName: 'people',

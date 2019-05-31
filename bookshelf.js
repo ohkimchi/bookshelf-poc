@@ -1,5 +1,5 @@
 var knex = require('knex')(require('./knexfile'));
 
-var bookshelf = require('bookshlef')(knex);
+var bookshelfpoc = require('bookshelf')(knex);
 
-module.exports = bookshelf;
+module.exports = bookshelfpoc;

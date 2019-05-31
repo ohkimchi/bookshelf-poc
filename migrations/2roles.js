@@ -5,6 +5,9 @@ exports.up = (knex) => {
       table.string('name', 255);
 
       table.unique(['name']);
+      table..foreign('person_id')
+        .references('id')
+        .inTable('people');
     });
 }
 

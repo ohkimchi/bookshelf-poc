@@ -1,6 +1,6 @@
 # create a device
 curl -X POST \
-  http://localhost:3001/devices/register \
+  http://localhost:3000/devices/register \
   -H 'Content-Type: application/json' \
   -d '{
   "id": "cb3e5d9d-94ed-4a33-bbd0-45cbbbe05d1c",
@@ -22,11 +22,11 @@ curl -X POST \
 
 # attach a device to person
 curl -X POST \
-  http://localhost:3001/devices/person \
+  http://localhost:3000/devices/person \
   -H 'Content-Type: application/json' \
   -d '{
-  "deviceId": "cb3e5d9d-94ed-4a33-bbd0-45cbbbe05d1c",
-  "personId": "47da392a-5dbb-4c5d-b7ee-d7116757e587"
+  "id": "cb3e5d9d-94ed-4a33-bbd0-45cbbbe05d1c",
+  "owned_by": "47da392a-5dbb-4c5d-b7ee-d7116757e587"
 }'
 
 # create  a new role
@@ -42,10 +42,6 @@ curl -X POST \
   http://localhost:3000/role/assign \
   -H 'Content-Type: application/json' \
   -d '{
-  "roleName": "testrole",
-  "personId": "47da392a-5dbb-4c5d-b7ee-d7116757e587"
+  "name": "testrole",
+  "person_id": "47da392a-5dbb-4c5d-b7ee-d7116757e587"
 }'
-
-# get all persons and devices data
-curl http://localhost:3000/persons | jq .
-
