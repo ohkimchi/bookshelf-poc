@@ -1,6 +1,6 @@
 exports.up = (knex) => {
   return knex.schema
-    .createTable('devices', (table) => {
+    .createTableIfNotExists('devices', (table) => {
       table.increments('id');
       table.string('type', 255);
       table.string('location', 255);
@@ -16,5 +16,5 @@ exports.up = (knex) => {
 
 exports.down = (knex) => {
   return knex.schema
-    .dropTable('devices');
+    .dropTableIfExists('devices');
 }

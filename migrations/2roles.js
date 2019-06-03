@@ -1,11 +1,12 @@
 exports.up = (knex) => {
   return knex.schema
-    .createTable('roles', (table) => {
+    .createTableIfNotExists('roles', (table) => {
       table.increments('id');
+      table.string('person_id', 255);
       table.string('name', 255);
 
       table.unique(['name']);
-      table..foreign('person_id')
+      table.foreign('person_id')
         .references('id')
         .inTable('people');
     });
@@ -13,5 +14,5 @@ exports.up = (knex) => {
 
 exports.down = (knex) => {
   return knex.schema
-    .dropTable('roles');
+    .dropTableIfExists('roles');
 }
