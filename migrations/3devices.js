@@ -1,6 +1,6 @@
-exports.up = (knex) => {
-  return knex.schema
-    .createTableIfNotExists('devices', (table) => {
+exports.up = function(knex, Promise) {
+  return Promise.all([
+    knex.schema.createTable('devices', (table) => {
       table.increments('id');
       table.string('type', 255);
       table.string('location', 255);
@@ -11,10 +11,12 @@ exports.up = (knex) => {
       table.foreign('owned_by')
         .references('id')
         .inTable('people');
-    });
+    })
+  ]);
 }
 
-exports.down = (knex) => {
-  return knex.schema
-    .dropTableIfExists('devices');
+exports.down = function(knex, Promise) {
+  return Promise.all([
+    knex.schema.dropTable('devices')
+  ]);
 }
